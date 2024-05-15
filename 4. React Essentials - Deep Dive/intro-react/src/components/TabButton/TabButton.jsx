@@ -5,12 +5,12 @@ TabButton.propTypes = {
         PropTypes.element,
         PropTypes.string
     ]).isRequired,
-    onSelect: PropTypes.func.isRequired,
-    isSelected: PropTypes.bool.isRequired
+    isSelected: PropTypes.bool.isRequired,
+    props: PropTypes.any
 };
 
-export default function TabButton({ children, onSelect, isSelected }) {
+export default function TabButton({ children, isSelected, ...props }) {
     return (
-        <li><button className={isSelected ? 'active': undefined} onClick={onSelect}>{children}</button></li>
+        <li><button className={isSelected ? 'active': undefined} {...props} >{children}</button></li>
     );
 }
