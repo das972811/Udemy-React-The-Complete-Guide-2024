@@ -5,15 +5,20 @@ import PropTypes from 'prop-types';
 Player.propTypes = {
     initialName: PropTypes.string,
     symbol: PropTypes.string,
-    isActive: PropTypes.bool
+    isActive: PropTypes.bool,
+    onChangeName: PropTypes.func
 };
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({ initialName, symbol, isActive, onChangeName }) {
     const [playerName, setPlayerName] = useState(initialName);
     const [isEditing, setIsEditing] = useState(false);
 
     function handleEditClick() {
         setIsEditing(wasEditing => !wasEditing);
+
+        if(isEditing) {
+            onChangeName(symbol, playerName);
+        }
     }
 
     function handleChange(event) {
