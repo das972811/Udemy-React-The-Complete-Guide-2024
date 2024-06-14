@@ -25,13 +25,13 @@ function App() {
                 };
                 updatedItems[existingCartItemIndex] = updatedItem;
             } else {
-                  const product = DUMMY_PRODUCTS.find((product) => product.id === id);
-                  updatedItems.push({
-                      id: id,
-                      name: product.title,
-                      price: product.price,
-                      quantity: 1,
-              });
+                const product = DUMMY_PRODUCTS.find((product) => product.id === id);
+                updatedItems.push({
+                    id: id,
+                    name: product.title,
+                    price: product.price,
+                    quantity: 1,
+                });
             }
 
             return {

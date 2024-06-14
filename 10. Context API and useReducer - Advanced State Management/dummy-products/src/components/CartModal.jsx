@@ -5,13 +5,6 @@ import PropTypes from 'prop-types';
 
 import Cart from './Cart';
 
-CartModal.propTypes = {
-    cartItems: PropTypes.any,
-    onUpdateCartItemQuantity: PropTypes.any,
-    title: PropTypes.any,
-    actions: PropTypes.any
-};
-
 const CartModal = forwardRef(function Modal(
     { cartItems, onUpdateCartItemQuantity, title, actions },
     ref
@@ -37,5 +30,12 @@ const CartModal = forwardRef(function Modal(
         document.getElementById('modal')
     );
 });
+
+CartModal.propTypes = {
+    cartItems: PropTypes.any,
+    onUpdateCartItemQuantity: PropTypes.any,
+    title: PropTypes.any,
+    actions: PropTypes.any
+};
 
 export default CartModal;

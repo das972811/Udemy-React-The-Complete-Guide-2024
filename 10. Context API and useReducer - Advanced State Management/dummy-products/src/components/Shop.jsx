@@ -4,7 +4,7 @@ import { DUMMY_PRODUCTS } from "../dummy-products.js";
 import Product from "./Product";
 
 Shop.propTypes = {
-    onAddItemToCart: PropTypes.array
+    onAddItemToCart: PropTypes.any
 };
 
 export default function Shop({ onAddItemToCart }) {
