@@ -1,29 +1,26 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import PropTypes from 'prop-types';
 
-const Modal = forwardRef(function Modal({ children }, ref) {
+function Modal({ open, children, onClose }) {
     const dialog = useRef();
 
-    useImperativeHandle(ref, () => {
-        return {
-        open: () => {
+    useEffect(() => {
+        if (open) {
             dialog.current.showModal();
-        },
-        close: () => {
+        } else {
             dialog.current.close();
-        },
-        };
-    });
+        }
+    }, [open]);
 
     return createPortal(
-        <dialog className="modal" ref={dialog}>
+        <dialog className="modal" ref={dialog} onClose={onClose}>
         {children}
         </dialog>,
         document.getElementById('modal')
     );
-});
+}
 
 Modal.propTypes = {
     children: PropTypes.node
