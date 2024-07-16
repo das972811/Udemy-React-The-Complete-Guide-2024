@@ -53,19 +53,20 @@ function App() {
         }
     }
     
-    const handleRemovePlace  = useCallback(function handleRemovePlace() {
+    const handleRemovePlace = useCallback(function handleRemovePlace() {
         setPickedPlaces((prevPickedPlaces) =>
             prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
         );
+
         setModalIsOpen(false);
 
         const storeIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
         localStorage.setItem('selectedPlaces', JSON.stringify(storeIds.filter((id) => id !== selectedPlace.current)));
-    }, [])
+    }, []);
 
     return (
     <>
-        <Modal open={modalIsOpen} onClose={handleRemovePlace}>
+        <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
             <DeleteConfirmation
                 onCancel={handleStopRemovePlace}
                 onConfirm={handleRemovePlace}
