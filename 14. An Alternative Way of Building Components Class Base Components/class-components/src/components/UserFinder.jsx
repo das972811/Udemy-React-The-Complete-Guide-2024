@@ -2,26 +2,37 @@ import { Fragment, useState, useEffect, Component } from 'react';
 
 import Users from './Users';
 import classes from './UserFinder.module.css';
+import UsersContext from '../store/users-context';
+import ErrorBoundary from './ErrorBoundary';
 
-const DUMMY_USERS = [
-    { id: 'u1', name: 'Max' },
-    { id: 'u2', name: 'Manuel' },
-    { id: 'u3', name: 'Julie' },
-];
+// const DUMMY_USERS = [
+//     { id: 'u1', name: 'Max' },
+//     { id: 'u2', name: 'Manuel' },
+//     { id: 'u3', name: 'Julie' },
+// ];
 
 class UserFinder extends Component {
+    static contextType = UsersContext;
+
     constructor() {
         super();
         this.state = {
-            filteredUsers: DUMMY_USERS,
+            filteredUsers: [],
             searchTerm: ''
         };
     }
 
+    componentDidMount() {
+        this.setState({ filteredUsers: this.context.users });
+    }
+
     componentDidUpdate(prevProps, prevStates) {
-        if (prevProps.searchTerm !== this.state.searchTerm) {
+        console.log('Diego')
+        console.log(prevStates)
+
+        if (prevStates.searchTerm !== this.state.searchTerm) {
             this.setState({
-                filteredUsers: DUMMY_USERS.filter((user) => user.name.includes(searchTerm))
+                filteredUsers: this.context.users.filter((user) => user.name.includes(this.state.searchTerm))
             });
         }
 
@@ -32,12 +43,17 @@ class UserFinder extends Component {
     }
 
     render() {
-        <Fragment>
-            <div className={classes.finder}>
-                <input type='search' onChange={this.searchChangeHandler.bind(this)} />
-            </div>
-            <Users users={this.state.filteredUsers} />
-        </Fragment>
+
+        return (
+            <Fragment>
+                <div className={classes.finder}>
+                    <input type='search' onChange={this.searchChangeHandler.bind(this)} />
+                </div>
+                <ErrorBoundary>
+                    <Users users={this.state.filteredUsers} />
+                </ErrorBoundary>
+            </Fragment>
+        );
     }
 }
 
